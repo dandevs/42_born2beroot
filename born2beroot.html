@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Born2beroot Guide | Setup & Installation</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --primary-color: #8b5cf6;
+            --secondary-color: #10b981;
+            --accent-color: #f472b6;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(148, 163, 184, 0.1);
+            --code-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1600px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        aside {
+            width: 250px;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            aside {
+                display: block;
+            }
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+
+        /* Components */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--card-border);
+            color: #a5b4fc;
+        }
+
+        .note {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        /* Navigation */
+        .toc {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+            transition: transform 0.2s;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            border: 1px solid var(--card-border);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-color);
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 1px solid var(--card-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            text-align: center;
+            display: none;
+        }
+
+        .carousel-item.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem 0.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+        .carousel-control:hover {
+            background: rgba(139, 92, 246, 0.8);
+        }
+
+        .carousel-prev {
+            left: 0;
+        }
+
+        .carousel-next {
+            right: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: 4rem;
+        }
+
+        /* Mobile Menu Button */
+        .menu-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: block;
+        }
+
+        @media (min-width: 1024px) {
+            .menu-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside>
+            <nav class="toc">
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#what-is-vm">What is a Virtual Machine?</a></li>
+                    <li><a href="#pros-cons">Advantages & Disadvantages</a></li>
+                    <li><a href="#os-choice">Debian vs CentOS</a></li>
+                    <li><a href="#creating-vm">Creating the VM</a></li>
+                    <li><a href="#installation">Installing Debian</a></li>
+                    <li><a href="#partitioning">Partitions & Encryption (LVM)</a></li>
+                    <li><a href="#lvm-setup">Configuring LVM</a></li>
+                    <li><a href="#finishing">Finishing Installation</a></li>
+                    <li><a href="#configuration">Configuration & Rules</a></li>
+                    <li><a href="#defense">Defense Preparation</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <header id="intro">
+                <h1>Born2beroot Guide</h1>
+                <p style="font-size: 1.2rem; color: #94a3b8;">A complete guide to creating a Debian Virtual Machine.</p>
+                <div class="note">
+                    <strong>Note:</strong> This page is a translated and redesigned version of the original CodeQuoi
+                    article for the 42 project "Born2beroot".
+                </div>
+            </header>
+
+            <section id="what-is-vm">
+                <div class="card">
+                    <h2>What is a Virtual Machine?</h2>
+                    <p>A virtual machine (VM) is practically identical to a physical computer: both strictly have a CPU,
+                        RAM, hard drive, internet connection if needed, and can run various operating systems and
+                        software. The only difference is that a physical computer uses its own hardware, while a virtual
+                        machine borrows resources from its host. Essentially, a VM is code—a virtual computer inside a
+                        physical server.</p>
+                    <p>Software called a "hypervisor" is responsible for creating and running virtual machines, as well
+                        as distributing resources—CPU, RAM, and disk space—among them.</p>
+                </div>
+            </section>
+
+            <section id="pros-cons">
+                <div class="card">
+                    <h2>Advantages & Disadvantages</h2>
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li>Run a different OS without partitioning the hard drive or rebooting.</li>
+                        <li>Install legacy OSs like DOS even if physical hardware is incompatible.</li>
+                        <li>Transport an entire OS on a USB stick or between computers easily.</li>
+                        <li>Isolate doubtful programs or viruses for study without risking the physical machine. VMs can
+                            be frozen, reset, copied, or deleted easily. snapshots allow restoring to a previous state.
+                        </li>
+                        <li>Install multiple VMs on limited physical hardware, saving money, electricity, and
+                            maintenance time.</li>
+                    </ul>
+
+                    <h3>Disadvantages</h3>
+                    <ul>
+                        <li>The host computer needs sufficient resources (especially RAM) to support virtualization;
+                            otherwise, performance suffers.</li>
+                        <li>If the host fails, VMs may become inaccessible without backups on another machine.</li>
+                        <li>A physical machine running multiple VMs can be a single point of failure and potentially
+                            more vulnerable if not managed correctly.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="os-choice">
+                <div class="card">
+                    <h2>Debian vs CentOS</h2>
+                    <p>For the Born2beroot project, we choose between two GNU/Linux distributions: Debian or CentOS.
+                        Both are community-driven, open-source, and renowned for stability and security.</p>
+
+                    <h3>Debian</h3>
+                    <p>Started in 1993, Debian is one of the oldest and most robust Linux distributions. It supports a
+                        wide variety of architectures and offers a huge selection of packages. It is minimal,
+                        resource-efficient, and secure managed by `apt`.</p>
+
+                    <h3>CentOS</h3>
+                    <p>CentOS (Community Enterprise Operating System) was the free, open-source version of RHEL (Red Hat
+                        Enterprise Linux). It is extremely stable and widely used in enterprise environments. However,
+                        recent changes (shift to CentOS Stream) have made it less of a 1:1 clone of stable RHEL.</p>
+
+                    <div class="note">
+                        <strong>Choice:</strong> This guide focuses on <strong>Debian</strong> as it is highly prevalent
+                        on internet servers and often preferred for stability and ease of package management for this
+                        project.
+                    </div>
+                </div>
+            </section>
+
+            <section id="creating-vm">
+                <div class="card">
+                    <h2>Creating the Virtual Machine</h2>
+                    <p>We need <strong>Oracle VirtualBox</strong> and the <strong>Debian ISO</strong>.</p>
+                    <ul>
+                        <li>VirtualBox: <a href="#">Official Site</a></li>
+                        <li>Debian ISO (amd64-netinst.iso is sufficient): <a href="#">Official Site</a></li>
+                    </ul>
+
+                    <h3>Steps:</h3>
+                    <ol style="margin-left: 1.5rem; color: #cbd5e1;">
+                        <li>Open VirtualBox and click <strong>New</strong>.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/01_virtualbox_home.png" alt="VirtualBox Home"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Name:</strong> Choose a name (e.g., your_login_42).
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/02_create_vm.png" alt="Create VM"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Folder:</strong> On 42 computers, use
+                            <code>/sgoinfre/goinfre/Perso/your_login</code> to save space.
+                        </li>
+                        <li><strong>RAM:</strong> 1024 MB (default) is usually sufficient.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/03_memory_size.png" alt="Memory Size"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Hard Disk:</strong> Create a virtual hard disk (VDI), Dynamically Allocated.
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                                <img src="images/04_hard_disk.png" alt="Hard Disk"
+                                    style="width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                                <img src="images/05_hard_disk_type.png" alt="Disk Type"
+                                    style="width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </div>
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/06_storage_allocation.png" alt="Storage Allocation"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Size:</strong> 12GB is enough for mandatory, but use <strong>30GB</strong> if you
+                            plan to do bonuses.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/07_file_location_size.png" alt="File Size"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                    </ol>
+                    <p>Your VM is created!</p>
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/08_vm_created.png" alt="VM Created"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+                </div>
+            </section>
+
+            <section id="installation">
+                <div class="card">
+                    <h2>Installing Debian</h2>
+                    <p>Start the VM. Select the Debian ISO file when prompted for a startup disk.</p>
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/09_startup_disk.png" alt="Startup Disk"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+                    <ul>
+                        <li>Select <strong>Install</strong> (Do NOT select Graphical Install as per subject rules).
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/10_debian_install_menu.png" alt="Install Menu"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Language/Region/Keyboard:</strong> Choose your preference (e.g., English/US).
+                            <div id="carousel-lang" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/11_language_selection.png" alt="Language">
+                                        <div class="carousel-caption">Select Language</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/12_location_selection.png" alt="Location">
+                                        <div class="carousel-caption">Select Location</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/13_keyboard_layout.png" alt="Keyboard">
+                                        <div class="carousel-caption">Select Keyboard</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-lang', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-lang', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li><strong>Hostname:</strong> <code>login42</code> (e.g., <code>danimend42</code>).
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/14_hostname.png" alt="Hostname"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Domain name:</strong> Leave empty.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/15_domain_name.png" alt="Domain Name"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Root Password:</strong> Set a STRONG password. confirmation required.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/16_root_password.png" alt="Root Password"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>New User:</strong> Create a user with your intra login. set a strong password.
+                            <div id="carousel-newuser" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/17_new_user_fullname.png" alt="User Fullname">
+                                        <div class="carousel-caption">Full Name</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/18_new_user_username.png" alt="User Username">
+                                        <div class="carousel-caption">Username</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/19_new_user_password.png" alt="User Password">
+                                        <div class="carousel-caption">Password</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-newuser', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-newuser', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="partitioning">
+                <div class="card">
+                    <h2>Partitions, LVM, and Encryption</h2>
+                    <p>We must partition manually. We need specific partitions for the mandatory part (boot, root, home,
+                        swap) and more for bonuses (var, srv, tmp, var/log).</p>
+
+                    <h3>Scheme Overview</h3>
+                    <p>We will create:</p>
+                    <ol style="margin-left: 1.5rem; color: #cbd5e1;">
+                        <li><strong>/boot partition:</strong> Unencrypted, for the bootloader.</li>
+                        <li><strong>LVM partition:</strong> Encrypted, containing all other system volumes.</li>
+                    </ol>
+
+                    <h3>Step-by-Step</h3>
+                    <p>1. Select "Manual" partitioning.</p>
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/20_partitioning_method.png" alt="Partitioning Method"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+                    <p>2. Select the disk (SCSI/Harddisk) -> Yes to create a partition table.</p>
+                    <div id="carousel-disk" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/21_select_disk.png" alt="Select Disk">
+                                <div class="carousel-caption">Select Disk</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/22_create_partition_table.png" alt="Partition Table">
+                                <div class="carousel-caption">Create Partition Table</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-disk', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-disk', 1)">&#10095;</button>
+                    </div>
+
+                    <h4>Creating /boot</h4>
+                    <ul>
+                        <li>Select FREE SPACE -> Create new partition.
+                            <div id="carousel-boot-create" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/23_select_free_space.png" alt="Free Space">
+                                        <div class="carousel-caption">Select Free Space</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/24_create_new_partition.png" alt="New Partition">
+                                        <div class="carousel-caption">Create New Partition</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-boot-create', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-boot-create', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li>Size: <strong>500 MB</strong>.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/25_boot_partition_size.png" alt="Boot Size"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li>Type: <strong>Primary</strong>. Location: <strong>Beginning</strong>.
+                            <div id="carousel-boot-type" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/26_boot_partition_type.png" alt="Boot Type">
+                                        <div class="carousel-caption">Primary Partition</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/27_boot_partition_location.png" alt="Boot Location">
+                                        <div class="carousel-caption">Beginning of Space</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-boot-type', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-boot-type', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li>Mount point: <strong>/boot</strong>.
+                            <div id="carousel-boot-mount" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/28_boot_mount_point.png" alt="Boot Mount">
+                                        <div class="carousel-caption">Mount Point</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/29_boot_mount_point_selection.png" alt="Select /boot">
+                                        <div class="carousel-caption">Select /boot</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-boot-mount', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-boot-mount', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li>"Done setting up the partition".
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/30_boot_partition_done.png" alt="Boot Done"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                    </ul>
+
+                    <h4>Creating the Encrypted Volume</h4>
+                    <ul>
+                        <li>Select remaining FREE SPACE -> Create new partition.
+                            <div id="carousel-lvm-create" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/31_select_free_space_2.png" alt="Remaining Space">
+                                        <div class="carousel-caption">Select Remaining Space</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/32_create_new_partition_2.png" alt="New Partition">
+                                        <div class="carousel-caption">Create New Partition</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-lvm-create', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-lvm-create', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li>Size: Max available.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/33_lvm_partition_size.png" alt="LVM Size"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li>Type: <strong>Logical</strong>.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/34_lvm_partition_type.png" alt="Logical Type"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Use as:</strong> Physical volume for encryption.
+                            <div id="carousel-lvm-use" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/35_lvm_mount_point.png" alt="Use As">
+                                        <div class="carousel-caption">Use As...</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/36_lvm_do_not_mount.png" alt="Do Not Mount">
+                                        <div class="carousel-caption">Physical Volume for Encryption</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-lvm-use', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-lvm-use', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li>"Done setting up the partition".
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/37_lvm_partition_done.png" alt="LVM Done"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                    </ul>
+
+                    <p>3. Select "Configure encrypted volumes" -> Yes.</p>
+                    <div id="carousel-encrypt-config" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/38_configure_encrypted_volumes.png" alt="Config Encryption">
+                                <div class="carousel-caption">Configure Encrypted Volumes</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/39_write_changes_encryption.png" alt="Write Changes">
+                                <div class="carousel-caption">Write Changes</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/40_create_encrypted_volumes.png" alt="Create Encrypted">
+                                <div class="carousel-caption">Create Encrypted Volumes</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-encrypt-config', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-encrypt-config', 1)">&#10095;</button>
+                    </div>
+                    <p>4. Select the partition (e.g., <code>/dev/sda5</code>) -> Done -> Finish.</p>
+                    <div id="carousel-encrypt-select" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/41_select_partition_to_encrypt.png" alt="Select Partition">
+                                <div class="carousel-caption">Select Partition</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/42_encryption_params_done.png" alt="Params Done">
+                                <div class="carousel-caption">Done Setting Up</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/43_finish_encryption_setup.png" alt="Finish Setup">
+                                <div class="carousel-caption">Finish Setup</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/44_erase_data.png" alt="Erase Data">
+                                <div class="carousel-caption">Erase Data</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-encrypt-select', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-encrypt-select', 1)">&#10095;</button>
+                    </div>
+                    <p>5. Enter a strong passphrase for encryption.</p>
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/45_encryption_passphrase.png" alt="Passphrase"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+                </div>
+            </section>
+
+            <section id="lvm-setup">
+                <div class="card">
+                    <h2>Configuring LVM</h2>
+                    <p>Now we create the Logical Volume Manager configuration inside the encrypted partition.</p>
+                    <p>1. Select "Configure the Logical Volume Manager" -> Yes.</p>
+                    <div id="carousel-lvm-config" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/46_configure_lvm.png" alt="Config LVM">
+                                <div class="carousel-caption">Configure LVM</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/47_write_changes_lvm.png" alt="Write LVM">
+                                <div class="carousel-caption">Write Changes</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-lvm-config', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-lvm-config', 1)">&#10095;</button>
+                    </div>
+                    <p>2. <strong>Create Volume Group:</strong> Name it <code>LVMGroup</code>. Select the encrypted
+                        space (<code>/dev/mapper/sda5_crypt</code>).</p>
+                    <div id="carousel-vg-create" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/48_create_volume_group.png" alt="Create VG">
+                                <div class="carousel-caption">Create Volume Group</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/49_name_volume_group.png" alt="Name VG">
+                                <div class="carousel-caption">Name Volume Group</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/50_select_encrypted_partition.png" alt="Select Partition">
+                                <div class="carousel-caption">Select Encrypted Partition</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-vg-create', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-vg-create', 1)">&#10095;</button>
+                    </div>
+
+                    <h3>Creating Logical Volumes</h3>
+                    <p>Create the following logical volumes within <code>LVMGroup</code>:</p>
+                    <div id="carousel-lv-create" class="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/51_create_logical_volume.png" alt="Create LV">
+                                <div class="carousel-caption">Create Logical Volume</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/52_select_volume_group.png" alt="Select VG">
+                                <div class="carousel-caption">Select Volume Group</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/53_name_logical_volume.png" alt="Name LV">
+                                <div class="carousel-caption">Name Logical Volume</div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/54_logical_volume_size.png" alt="Size LV">
+                                <div class="carousel-caption">Set Size</div>
+                            </div>
+                        </div>
+                        <button class="carousel-control carousel-prev"
+                            onclick="moveCarousel('carousel-lv-create', -1)">&#10094;</button>
+                        <button class="carousel-control carousel-next"
+                            onclick="moveCarousel('carousel-lv-create', 1)">&#10095;</button>
+                    </div>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Rec. Size (Mandatory)</th>
+                                <th>Rec. Size (Bonus)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>root</td>
+                                <td>~3 GB</td>
+                                <td>~10 GB</td>
+                            </tr>
+                            <tr>
+                                <td>swap</td>
+                                <td>~2 GB (or RAM size)</td>
+                                <td>~2 GB</td>
+                            </tr>
+                            <tr>
+                                <td>home</td>
+                                <td>Rest of space</td>
+                                <td>~5 GB</td>
+                            </tr>
+                            <tr>
+                                <td>var</td>
+                                <td>-</td>
+                                <td>~3 GB</td>
+                            </tr>
+                            <tr>
+                                <td>srv</td>
+                                <td>-</td>
+                                <td>~3 GB</td>
+                            </tr>
+                            <tr>
+                                <td>tmp</td>
+                                <td>-</td>
+                                <td>~3 GB</td>
+                            </tr>
+                            <tr>
+                                <td>var-log</td>
+                                <td>-</td>
+                                <td>~4 GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/55_lvm_config_details.png" alt="LVM Config"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+
+                    <h3>Formatting Volumes</h3>
+                    <p>Once volumes are created, select "Finish" in LVM manager. Now assigning file systems:</p>
+                    <ul>
+                        <li>Select each LVM volume (e.g., "LV root") in the main menu.
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/56_select_lv_to_format.png" alt="Select LV"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>Use as:</strong> Ext4 journaling file system (except swap).
+                            <div id="carousel-fs" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/57_use_as.png" alt="Use As">
+                                        <div class="carousel-caption">Use As...</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/58_select_ext4.png" alt="Ext4">
+                                        <div class="carousel-caption">Ext4 Journaling File System</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-fs', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-fs', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                        <li><strong>Mount point:</strong>
+                            <div id="carousel-mount" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/59_mount_point.png" alt="Mount Point">
+                                        <div class="carousel-caption">Mount Point</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/60_select_home_mount.png" alt="Select Mount">
+                                        <div class="carousel-caption">Select Mount Point</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-mount', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-mount', 1)">&#10095;</button>
+                            </div>
+                            <ul>
+                                <li>root -> <code>/</code></li>
+                                <li>home -> <code>/home</code></li>
+                                <li>swap -> Use as "swap area"</li>
+                                <li>var -> <code>/var</code></li>
+                                <li>srv -> <code>/srv</code></li>
+                                <li>tmp -> <code>/tmp</code></li>
+                                <li>var-log -> Enter manually as <code>/var/log</code></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Finally, select "Finish partitioning and write changes to disk".</p>
+                </div>
+            </section>
+
+            <section id="finishing">
+                <div class="card">
+                    <h2>Finishing Installation</h2>
+                    <ul>
+                        <li><strong>Scan extra media?</strong> No.</li>
+                        <li><strong>Mirror:</strong> Choose a country near you (e.g., France/US) -> deb.debian.org.</li>
+                        <li><strong>Proxy:</strong> Leave empty.</li>
+                        <li><strong>Survey?</strong> No.</li>
+                        <li><strong>Software selection:</strong> Uncheck EVERYTHING (no desktop env, no print server).
+                            ONLY keep <strong>Standard system utilities</strong> if you want (some guides say uncheck
+                            this too, subject implies minimal install).
+                            <figure style="margin: 1rem 0; text-align: center;">
+                                <img src="images/61_software_selection.png" alt="Software Selection"
+                                    style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                            </figure>
+                        </li>
+                        <li><strong>GRUB Bootloader:</strong> Install to Master Boot Record? <strong>Yes</strong>.
+                            Device: <code>/dev/sda</code>.
+                            <div id="carousel-grub" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="images/62_install_grub.png" alt="Install GRUB">
+                                        <div class="carousel-caption">Install GRUB</div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="images/63_select_grub_device.png" alt="Select GRUB Device">
+                                        <div class="carousel-caption">Select /dev/sda</div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control carousel-prev"
+                                    onclick="moveCarousel('carousel-grub', -1)">&#10094;</button>
+                                <button class="carousel-control carousel-next"
+                                    onclick="moveCarousel('carousel-grub', 1)">&#10095;</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="note">Congratulations! The installation is complete. Reboot the VM.</p>
+                    <figure style="margin: 1rem 0; text-align: center;">
+                        <img src="images/64_finish_installation.png" alt="Finish"
+                            style="max-width: 100%; border-radius: 0.5rem; border: 1px solid var(--card-border);">
+                    </figure>
+                </div>
+            </section>
+
+    </div>
+    </section>
+
+    <section id="configuration">
+        <div class="card">
+            <h2>Configuration & Rules</h2>
+
+            <h3>Sudo Policy</h3>
+            <p><strong>Sudo</strong> ("superuser do") allows authorized users to execute commands as the superuser.</p>
+            <div class="code-block">
+                dpkg -l | grep sudo # Check installation
+                /var/log/sudo/ # Log directory (check sudo.log)
+            </div>
+
+            <h3>Password Policy</h3>
+            <p>Enforce strong password rules (expiration, complexity). Check a user's status:</p>
+            <div class="code-block">
+                sudo chage -l &lt;username&gt;
+            </div>
+            <ul style="font-size: 0.9em; color: #cbd5e1;">
+                <li><strong>PASS_MAX_DAYS 30</strong>: Password expires every 30 days.</li>
+                <li><strong>PASS_MIN_DAYS 2</strong>: Minimum days before changing password.</li>
+                <li><strong>PASS_WARN_AGE 7</strong>: Warning 7 days before expiration.</li>
+            </ul>
+
+            <h3>UFW (Uncomplicated Firewall)</h3>
+            <p>Firewall to secure the network. Only port 4242 should be open.</p>
+            <div class="code-block">
+                sudo ufw status numbered # List active rules
+                sudo ufw allow 4242 # Open port 4242
+                sudo ufw enable # Start firewall
+            </div>
+
+            <h3>SSH (Secure Shell)</h3>
+            <p>Secure remote connection protocol. Should run on port 4242, not 22.</p>
+            <div class="code-block">
+                sudo systemctl status ssh # Check status
+                /etc/ssh/sshd_config # Config file (change Port 22 to 4242)
+            </div>
+
+            <h3>Crontab (Monitoring)</h3>
+            <p>Cron schedules tasks. You need a monitoring script running every 10 minutes.</p>
+            <div class="code-block">
+                sudo crontab -u root -e # Edit root's crontab
+            </div>
+            <p>Add this line to run exactly every 10 minutes:</p>
+            <div class="code-block">
+                */10 * * * * /path/to/monitoring.sh
+            </div>
+        </div>
+    </section>
+
+    <section id="defense">
+        <div class="card" style="border-color: var(--accent-color);">
+            <h2 style="color: var(--accent-color);">Defense Preparation</h2>
+
+            <h3>Theoretical Questions</h3>
+            <ul class="defense-list">
+                <li><strong>How does a VM work?</strong> It's a virtual computer using resources (CPU, RAM) borrowed
+                    from the physical host via a Hypervisor.</li>
+                <li><strong>Apt vs Aptitude?</strong> Both are package managers. <em>Aptitude</em> is smarter: it cleans
+                    up unused dependencies automatically. <em>Apt</em> is lower-level and only does exactly what's
+                    requested.</li>
+                <li><strong>What is AppArmor?</strong> mandatory Access Control (MAC) system. It restricts programs'
+                    capabilities (like file access) to increase security. Included by default in Debian.</li>
+                <li><strong>LVM (Logical Volume Manager)?</strong> Allows flexible resizing of partitions across
+                    multiple physical disks without formatting.</li>
+            </ul>
+
+            <h3>Practical Checks</h3>
+            <p>The evaluator will ask you to run these commands:</p>
+            <table class="comparison-table">
+                <tr>
+                    <td><strong>Check OS Info</strong></td>
+                    <td><code>hostnamectl</code> or <code>cat /etc/os-release</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Check Partitions</strong></td>
+                    <td><code>lsblk</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Check UFW</strong></td>
+                    <td><code>sudo ufw status</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Check SSH</strong></td>
+                    <td><code>sudo systemctl status ssh</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Check User Groups</strong></td>
+                    <td><code>getent group sudo</code> <br> <code>getent group user42</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Password Rules</strong></td>
+                    <td><code>sudo chage -l &lt;username&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Signature</strong></td>
+                    <td><code>shasum Born2beroot.vdi</code> (run on host)</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    </main>
+    </div>
+
+    <footer>
+        <p>Original content from Codequoi. Translated and Redesigned for Born2beroot.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Carousel Logic
+        function moveCarousel(id, step) {
+            const carousel = document.getElementById(id);
+            const items = carousel.querySelectorAll('.carousel-item');
+            const activeIndex = Array.from(items).findIndex(item => item.classList.contains('active'));
+            let newIndex = activeIndex + step;
+
+            if (newIndex >= items.length) newIndex = 0;
+            if (newIndex < 0) newIndex = items.length - 1;
+
+            items[activeIndex].classList.remove('active');
+            items[newIndex].classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
