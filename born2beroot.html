@@ -368,7 +368,7 @@
                         <li>Install legacy OSs like DOS even if physical hardware is incompatible.</li>
                         <li>Transport an entire OS on a USB stick or between computers easily.</li>
                         <li>Isolate doubtful programs or viruses for study without risking the physical machine. VMs can
-                            be frozen, reset, copied, or deleted easily. snapshots allow restoring to a previous state.
+                            be frozen, reset, copied, or deleted easily.
                         </li>
                         <li>Install multiple VMs on limited physical hardware, saving money, electricity, and
                             maintenance time.</li>
@@ -387,25 +387,175 @@
 
             <section id="os-choice">
                 <div class="card">
-                    <h2>Debian vs CentOS</h2>
-                    <p>For the Born2beroot project, we choose between two GNU/Linux distributions: Debian or CentOS.
-                        Both are community-driven, open-source, and renowned for stability and security.</p>
+                    <h2>Debian vs Rocky Linux</h2>
+                    <p>For the Born2beroot project, we choose between two GNU/Linux distributions: <strong>Debian</strong> or
+                        <strong>Rocky Linux</strong>. Both are community-driven, open-source, and renowned for stability and security.</p>
 
                     <h3>Debian</h3>
                     <p>Started in 1993, Debian is one of the oldest and most robust Linux distributions. It supports a
                         wide variety of architectures and offers a huge selection of packages. It is minimal,
-                        resource-efficient, and secure managed by `apt`.</p>
+                        resource-efficient, and secure managed by <code>apt</code>. Uses <strong>AppArmor</strong> for MAC
+                        (Mandatory Access Control).</p>
 
-                    <h3>CentOS</h3>
-                    <p>CentOS (Community Enterprise Operating System) was the free, open-source version of RHEL (Red Hat
-                        Enterprise Linux). It is extremely stable and widely used in enterprise environments. However,
-                        recent changes (shift to CentOS Stream) have made it less of a 1:1 clone of stable RHEL.</p>
+                    <h3>Rocky Linux</h3>
+                    <p>Rocky Linux is a free, open-source downstream version of RHEL (Red Hat Enterprise Linux). It was
+                        created after CentOS shifted to CentOS Stream. Rocky Linux aims to be a 1:1 binary-compatible
+                        release with RHEL. It is extremely stable and widely used in enterprise environments.
+                        Uses <strong>SELinux</strong> for MAC. <strong>Note:</strong> Setting up Rocky is more complex and
+                        KDump is not required for this project.</p>
 
                     <div class="note">
                         <strong>Choice:</strong> This guide focuses on <strong>Debian</strong> as it is highly prevalent
                         on internet servers and often preferred for stability and ease of package management for this
                         project.
                     </div>
+                </div>
+
+                <div class="card">
+                    <h2>Technology Comparisons</h2>
+                    <p>For your README, you'll need to understand and explain these comparisons:</p>
+
+                    <h3>Debian vs Rocky Linux</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Debian</th>
+                                <th>Rocky Linux</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Package Manager</td>
+                                <td><code>apt</code> / <code>aptitude</code></td>
+                                <td><code>dnf</code> / <code>yum</code></td>
+                            </tr>
+                            <tr>
+                                <td>Base</td>
+                                <td>Independent community project</td>
+                                <td>RHEL downstream clone</td>
+                            </tr>
+                            <tr>
+                                <td>MAC System</td>
+                                <td>AppArmor</td>
+                                <td>SELinux</td>
+                            </tr>
+                            <tr>
+                                <td>Firewall</td>
+                                <td>UFW</td>
+                                <td>firewalld</td>
+                            </tr>
+                            <tr>
+                                <td>Ease of Use</td>
+                                <td>Easier for beginners</td>
+                                <td>More complex, enterprise-focused</td>
+                            </tr>
+                            <tr>
+                                <td>Stability</td>
+                                <td>Very stable (Debian Stable)</td>
+                                <td>Extremely stable (RHEL-based)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>AppArmor vs SELinux</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>AppArmor (Debian)</th>
+                                <th>SELinux (Rocky)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Based on</td>
+                                <td>Path-based</td>
+                                <td>Label-based (inode)</td>
+                            </tr>
+                            <tr>
+                                <td>Complexity</td>
+                                <td>Simpler profiles</td>
+                                <td>More complex policies</td>
+                            </tr>
+                            <tr>
+                                <td>Learning Curve</td>
+                                <td>Easier for beginners</td>
+                                <td>Steeper learning curve</td>
+                            </tr>
+                            <tr>
+                                <td>Default in</td>
+                                <td>Debian, Ubuntu, SUSE</td>
+                                <td>RHEL, Fedora, CentOS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>UFW vs firewalld</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>UFW (Debian)</th>
+                                <th>firewalld (Rocky)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Full Name</td>
+                                <td>Uncomplicated Firewall</td>
+                                <td>Firewall Daemon</td>
+                            </tr>
+                            <tr>
+                                <td>Backend</td>
+                                <td><code>iptables</code> / <code>nftables</code></td>
+                                <td><code>nftables</code></td>
+                            </tr>
+                            <tr>
+                                <td>Complexity</td>
+                                <td>Simple, easy syntax</td>
+                                <td>More complex, zone-based</td>
+                            </tr>
+                            <tr>
+                                <td>Dynamic</td>
+                                <td>Rules apply immediately</td>
+                                <td>Supports dynamic updates</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>VirtualBox vs UTM</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>VirtualBox</th>
+                                <th>UTM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Platforms</td>
+                                <td>Windows, Linux, macOS</td>
+                                <td>macOS, iOS (Apple Silicon only)</td>
+                            </tr>
+                            <tr>
+                                <td>Disk Format</td>
+                                <td>.vdi</td>
+                                <td>.qcow2</td>
+                            </tr>
+                            <tr>
+                                <td>Virtualization</td>
+                                <td>Full virtualization</td>
+                                <td>Apple Virtualization Framework (near-native)</td>
+                            </tr>
+                            <tr>
+                                <td>Best For</td>
+                                <td>Cross-platform, Windows/Linux</td>
+                                <td>Apple Silicon Macs</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
@@ -1001,47 +1151,276 @@
         <div class="card">
             <h2>Configuration & Rules</h2>
 
-            <h3>Sudo Policy</h3>
-            <p><strong>Sudo</strong> ("superuser do") allows authorized users to execute commands as the superuser.</p>
+            <h3>1. User and Group Management</h3>
+            <p>Create a user with your login and add to required groups:</p>
             <div class="code-block">
-                dpkg -l | grep sudo # Check installation
-                /var/log/sudo/ # Log directory (check sudo.log)
+                # Add user to sudo group<br>
+                sudo usermod -aG sudo &lt;your_login&gt;<br><br>
+                # Create user42 group<br>
+                sudo groupadd user42<br><br>
+                # Add your user to user42<br>
+                sudo usermod -aG user42 &lt;your_login&gt;<br><br>
+                # Verify<br>
+                groups &lt;your_login&gt;<br>
+                getent group sudo<br>
+                getent group user42
             </div>
 
-            <h3>Password Policy</h3>
-            <p>Enforce strong password rules (expiration, complexity). Check a user's status:</p>
+            <h3>2. Password Policy Configuration</h3>
+            <p>Edit the password configuration file with strict rules:</p>
+            <div class="code-block">
+                sudo nano /etc/login.defs
+            </div>
+            <p>Modify these values:</p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>PASS_MAX_DAYS</code></td>
+                    <td><code>30</code></td>
+                    <td>Password expires every 30 days</td>
+                </tr>
+                <tr>
+                    <td><code>PASS_MIN_DAYS</code></td>
+                    <td><code>2</code></td>
+                    <td>Minimum 2 days before password change</td>
+                </tr>
+                <tr>
+                    <td><code>PASS_WARN_AGE</code></td>
+                    <td><code>7</code></td>
+                    <td>Warning 7 days before expiration</td>
+                </tr>
+            </table>
+
+            <p>For additional complexity rules (min 10 chars, uppercase, lowercase, number, no more than 3 consecutive identical chars), install and configure <code>libpam-pwquality</code>:</p>
+            <div class="code-block">
+                # Install pwquality<br>
+                sudo apt install libpam-pwquality<br><br>
+                # Edit configuration<br>
+                sudo nano /etc/security/pwquality.conf
+            </div>
+            <p>Add/modify these lines:</p>
+            <div class="code-block">
+                minlen = 10<br>
+                minclass = 3<br>
+                maxrepeat = 3<br>
+                usercheck = 1<br>
+                difok = 7
+            </div>
+            <ul style="font-size: 0.9em; color: #cbd5e1;">
+                <li><strong>minlen = 10</strong>: Minimum 10 characters</li>
+                <li><strong>minclass = 3</strong>: At least 3 character classes (upper, lower, digit, special)</li>
+                <li><strong>maxrepeat = 3</strong>: Maximum 3 consecutive identical characters</li>
+                <li><strong>usercheck = 1</strong>: Password cannot contain username</li>
+                <li><strong>difok = 7</strong>: At least 7 characters different from old password</li>
+            </ul>
+            <p class="note">After configuration, change all passwords (including root):</p>
+            <div class="code-block">
+                sudo passwd &lt;your_login&gt;<br>
+                sudo passwd root
+            </div>
+            <p>Verify password policy:</p>
             <div class="code-block">
                 sudo chage -l &lt;username&gt;
             </div>
-            <ul style="font-size: 0.9em; color: #cbd5e1;">
-                <li><strong>PASS_MAX_DAYS 30</strong>: Password expires every 30 days.</li>
-                <li><strong>PASS_MIN_DAYS 2</strong>: Minimum days before changing password.</li>
-                <li><strong>PASS_WARN_AGE 7</strong>: Warning 7 days before expiration.</li>
+
+            <h3>3. Sudo Configuration</h3>
+            <p>Create sudo log directory and configure sudoers:</p>
+            <div class="code-block">
+                # Create log directory<br>
+                sudo mkdir -p /var/log/sudo/<br>
+                sudo touch /var/log/sudo/sudo.log<br><br>
+                # Edit sudoers file safely<br>
+                sudo visudo -f /etc/sudoers.d/custom_rules
+            </div>
+            <p>Add these configurations:</p>
+            <div class="code-block">
+                # Custom sudo rules for Born2beroot<br><br>
+                # Limit authentication to 3 attempts<br>
+                Defaults passwd_tries=3<br><br>
+                # Custom bad password message<br>
+                Defaults badpass_message="Wrong password, try again!"<br><br>
+                # Log sudo commands (input and output)<br>
+                Defaults logfile="/var/log/sudo/sudo.log"<br>
+                Defaults log_input,log_output<br><br>
+                # Enable TTY mode (security requirement)<br>
+                Defaults requiretty<br><br>
+                # Restrict secure_path<br>
+                Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+            </div>
+
+            <h3>4. SSH Configuration</h3>
+            <p>Install and configure SSH to run on port 4242:</p>
+            <div class="code-block">
+                # Install SSH<br>
+                sudo apt update &amp;&amp; sudo apt install openssh-server<br><br>
+                # Edit SSH config<br>
+                sudo nano /etc/ssh/sshd_config
+            </div>
+            <p>Find and modify:</p>
+            <div class="code-block">
+                # Change port from 22 to 4242<br>
+                Port 4242<br><br>
+                # Disable root login via SSH<br>
+                PermitRootLogin no<br><br>
+                # (Optional but recommended) Password authentication yes
+            </div>
+            <p>Restart SSH service:</p>
+            <div class="code-block">
+                sudo systemctl restart ssh<br>
+                sudo systemctl status ssh
+            </div>
+
+            <h3>5. UFW Firewall Configuration</h3>
+            <p>Configure UFW to only allow port 4242:</p>
+            <div class="code-block">
+                # Install UFW if not present<br>
+                sudo apt install ufw<br><br>
+                # Set default rules<br>
+                sudo ufw default deny incoming<br>
+                sudo ufw default allow outgoing<br><br>
+                # Allow SSH port only<br>
+                sudo ufw allow 4242<br><br>
+                # Enable firewall<br>
+                sudo ufw enable<br><br>
+                # Check status<br>
+                sudo ufw status numbered
+            </div>
+            <p class="note">Important: The firewall must be active at startup. UFW enables this by default.</p>
+
+            <h3>6. AppArmor (Mandatory for Debian)</h3>
+            <p>Verify AppArmor is running at startup:</p>
+            <div class="code-block">
+                # Check AppArmor status<br>
+                sudo aa-status<br><br>
+                # Check if AppArmor service is enabled<br>
+                sudo systemctl is-enabled apparmor<br><br>
+                # Check if AppArmor is active<br>
+                sudo systemctl status apparmor<br><br>
+                # Ensure it starts at boot<br>
+                sudo systemctl enable apparmor
+            </div>
+            <p class="note">AppArmor should be active by default on Debian. If not, install it:</p>
+            <div class="code-block">
+                sudo apt install apparmor apparmor-utils<br>
+                sudo reboot
+            </div>
+
+            <h3>7. Monitoring Script</h3>
+            <p>Create the <code>monitoring.sh</code> script that displays system information:</p>
+            <div class="code-block">
+                # Create script in root home or /usr/local/bin<br>
+                sudo nano /root/monitoring.sh
+            </div>
+            <p>Script content (copy the entire block):</p>
+            <div class="code-block">
+#!/bin/bash<br><br>
+# Born2beroot Monitoring Script<br>
+# Displays system information every 10 minutes via wall<br><br>
+# Architecture and kernel version<br>
+arch=$(uname -a)<br>
+echo "#Architecture: $arch"<br><br>
+# CPU physical processors<br>
+cpu_physical=$(lscpu | awk '/^CPU\(s\)/{print $2}')<br>
+echo "#CPU physical : $cpu_physical"<br><br>
+# Virtual processors (vCPU)<br>
+vcpu=$(lscpu | awk '/^Thread(s) per core/{threads=$4} /^Core\(s\) per socket/{cores=$4} /^Socket\(s\)/{sockets=$2} END{print sockets*cores*threads}')<br>
+echo "#vCPU : $vcpu"<br><br>
+# Available RAM and utilization rate<br>
+ram_total=$(free -m | awk '/Mem/{print $2}')<br>
+ram_used=$(free -m | awk '/Mem/{print $3}')<br>
+ram_percent=$(free | awk '/Mem/{printf("%.2f"), $3/$2*100}')<br>
+echo "#Memory Usage: ${ram_used}/${ram_total}MB (${ram_percent}%)"<br><br>
+# Available storage and utilization rate<br>
+disk_total=$(df -m / | awk 'NR==2{print $2}')<br>
+disk_used=$(df -m / | awk 'NR==2{print $3}')<br>
+disk_percent=$(df -h / | awk 'NR==2{print $5}')<br>
+echo "#Disk Usage: ${disk_used}/${disk_total}Gb (${disk_percent})"<br><br>
+# Current CPU utilization rate<br>
+cpu_load=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)<br>
+echo "#CPU load: ${cpu_load}%"<br><br>
+# Date and time of last reboot<br>
+last_boot=$(who -b | awk '{print $3" "$4" "$5}')<br>
+echo "#Last boot: $last_boot"<br><br>
+# Whether LVM is active<br>
+lvm_active=$(lsblk | grep -q "lvm" &amp;&amp; echo "yes" || echo "no")<br>
+echo "#LVM use: $lvm_active"<br><br>
+# Number of active TCP connections<br>
+tcp_connections=$(ss -t | grep -c ESTAB)<br>
+echo "#Connections TCP : $tcp_connections ESTABLISHED"<br><br>
+# Number of users using the server<br>
+user_log=$(who | wc -l)<br>
+echo "#User log: $user_log"<br><br>
+# IPv4 address and MAC address<br>
+ip=$(hostname -I | awk '{print $1}')<br>
+mac=$(ip link show | awk '/ether/{print $2}')<br>
+echo "#Network: IP $ip ($mac)"<br><br>
+# Number of commands executed with sudo<br>
+sudo_cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)<br>
+echo "#Sudo : $sudo_cmds cmd"
+            </div>
+            <p>Make the script executable and set up cron:</p>
+            <div class="code-block">
+                # Make executable<br>
+                sudo chmod +x /root/monitoring.sh<br><br>
+                # Test the script<br>
+                sudo /root/monitoring.sh<br><br>
+                # Edit root's crontab<br>
+                sudo crontab -u root -e
+            </div>
+            <p>Add this line to run every 10 minutes and at startup:</p>
+            <div class="code-block">
+                # Run every 10 minutes<br>
+                */10 * * * * /root/monitoring.sh | wall<br><br>
+                # Run at startup (reboot)<br>
+                @reboot /root/monitoring.sh | wall
+            </div>
+            <p class="note">To stop/interrupt the monitoring script without modifying it during evaluation:</p>
+            <div class="code-block">
+                sudo crontab -u root -r  # Remove root's crontab<br>
+                # OR temporarily disable<br>
+                sudo crontab -u root -e  # Add # before the cron lines
+            </div>
+
+            <h3>8. Signature File for Submission</h3>
+            <p>Create the <code>signature.txt</code> file for git submission:</p>
+            <div class="code-block">
+                # Find your VM disk location<br>
+                # Windows: %HOMEDRIVE%%HOMEPATH%\VirtualBox VMs\<br>
+                # Linux: ~/VirtualBox VMs/<br>
+                # macOS: ~/VirtualBox VMs/<br><br>
+                # Get SHA1 signature<br>
+                cd ~/VirtualBox\ VMs/&lt;your_vm_name&gt;/<br>
+                sha1sum *.vdi  # Linux<br>
+                shasum *.vdi   # macOS<br>
+                certUtil -hashfile *.vdi sha1  # Windows
+            </div>
+            <p>The output will look like: <code>6e657c4619944be17df3c31faa030c25e43e40af</code></p>
+            <p>Create the signature.txt file in your git repo:</p>
+            <div class="code-block">
+                cd ~/git/repos/Born2beroot  # Your git repo<br>
+                echo "YOUR_SIGNATURE_HERE" &gt; signature.txt
+            </div>
+            <p class="note"><strong>Important:</strong></p>
+            <ul style="color: #cbd5e1;">
+                <li>Snapshots are <strong>FORBIDDEN</strong> - do not use them</li>
+                <li>Only submit <code>signature.txt</code> and <code>README.md</code> in git</li>
+                <li>The VM signature must match the one in signature.txt during defense</li>
             </ul>
 
-            <h3>UFW (Uncomplicated Firewall)</h3>
-            <p>Firewall to secure the network. Only port 4242 should be open.</p>
+            <h3>9. Hostname</h3>
+            <p>Verify and change hostname to <code>login42</code> format:</p>
             <div class="code-block">
-                sudo ufw status numbered # List active rules
-                sudo ufw allow 4242 # Open port 4242
-                sudo ufw enable # Start firewall
-            </div>
-
-            <h3>SSH (Secure Shell)</h3>
-            <p>Secure remote connection protocol. Should run on port 4242, not 22.</p>
-            <div class="code-block">
-                sudo systemctl status ssh # Check status
-                /etc/ssh/sshd_config # Config file (change Port 22 to 4242)
-            </div>
-
-            <h3>Crontab (Monitoring)</h3>
-            <p>Cron schedules tasks. You need a monitoring script running every 10 minutes.</p>
-            <div class="code-block">
-                sudo crontab -u root -e # Edit root's crontab
-            </div>
-            <p>Add this line to run exactly every 10 minutes:</p>
-            <div class="code-block">
-                */10 * * * * /path/to/monitoring.sh
+                # View current hostname<br>
+                hostname<br><br>
+                # Change hostname (replace &lt;login42&gt; with your login)<br>
+                sudo hostnamectl set-hostname &lt;login42&gt;<br><br>
+                # Also edit /etc/hosts<br>
+                sudo nano /etc/hosts<br>
+                # Replace old hostname with new one on 127.0.1.1 line
             </div>
         </div>
     </section>
@@ -1051,84 +1430,142 @@
             <h2 style="color: var(--accent-color);">Defense Preparation</h2>
 
             <h3>Theoretical Questions</h3>
-            <ul class="defense-list">
-                <li><strong>How does a VM work?</strong> It's a virtual computer using resources (CPU, RAM) borrowed
-                    from the physical host via a Hypervisor.</li>
-                <li><strong>Apt vs Aptitude?</strong> Both are package managers. <em>Aptitude</em> is smarter: it cleans
-                    up unused dependencies automatically. <em>Apt</em> is lower-level and only does exactly what's
-                    requested.</li>
-                <li><strong>What is AppArmor?</strong> mandatory Access Control (MAC) system. It restricts programs'
-                    capabilities (like file access) to increase security. Included by default in Debian.</li>
-                <li><strong>LVM (Logical Volume Manager)?</strong> Allows flexible resizing of partitions across
-                    multiple physical disks without formatting.</li>
+            <p>Be prepared to answer questions about your operating system choice and configuration:</p>
+
+            <h4>Virtualization Concepts</h4>
+            <ul>
+                <li><strong>How does a VM work?</strong> A Virtual Machine is a software-based emulation of a physical computer.
+                    It runs an operating system and applications just like physical hardware, but uses resources (CPU, RAM,
+                    disk) borrowed from the host machine via a hypervisor (VirtualBox, UTM, etc.). The VM believes it has
+                    dedicated hardware, but the hypervisor manages the actual resource allocation.</li>
+                <li><strong>What is a hypervisor?</strong> Software that creates and runs VMs. Type 1 (bare-metal) runs directly
+                    on hardware (e.g., VMware ESXi). Type 2 (hosted) runs on top of an OS (e.g., VirtualBox).</li>
             </ul>
 
-            <h3>Practical Checks</h3>
-            <p>The evaluator will ask you to run these commands:</p>
-            <table class="comparison-table">
-                <tr>
-                    <td><strong>Check OS Info</strong></td>
-                    <td><code>hostnamectl</code> or <code>cat /etc/os-release</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Check Partitions</strong></td>
-                    <td><code>lsblk</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Check UFW</strong></td>
-                    <td><code>sudo ufw status</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Check SSH</strong></td>
-                    <td><code>sudo systemctl status ssh</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Check User Groups</strong></td>
-                    <td><code>getent group sudo</code> <br> <code>getent group user42</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Password Rules</strong></td>
-                    <td><code>sudo chage -l &lt;username&gt;</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Signature</strong></td>
-                    <td><code>shasum Born2beroot.vdi</code> (run on host)</td>
-                </tr>
-            </table>
-        </div>
-    </section>
-    </main>
+            <h4>Package Management</h4>
+            <ul>
+                <li><strong>apt vs aptitude?</strong>
+                    <br><em>apt</em> is the standard Debian package manager - simpler, faster, and lower-level.
+                    <br><em>aptitude</em> is more advanced - includes a text UI, better dependency resolution, and can
+                    automatically clean unused dependencies. aptitude makes smarter decisions about complex dependency
+                    conflicts.</li>
+                <li><strong>apt vs dnf/yum?</strong>
+                    <br><em>apt</em> (Debian) uses .deb packages from Debian repositories.
+                    <br><em>dnf</em> (Rocky/RHEL, successor to yum) uses .rpm packages from RPM-based repositories.
+                    Both perform similar functions but for different package ecosystems.</li>
+            </ul>
+
+            <h4>Security - Mandatory Access Control</h4>
+            <ul>
+                <li><strong>What is AppArmor?</strong> AppArmor (Debian) is a Mandatory Access Control (MAC) system that
+                    restricts program capabilities based on path-based profiles. It confines applications to only access
+                    specific files/ports required for their function, limiting damage from compromised programs. Example:
+                    A web browser profile might forbid accessing SSH keys.</li>
+                <li><strong>What is SELinux?</strong> SELinux (Rocky/RHEL) is a MAC system using label-based security policies.
+                    Every process and file has a security context (label). SELinux policies define what labels can interact.
+                    More complex than AppArmor but offers finer-grained control.</li>
+                <li><strong>Difference: AppArmor vs SELinux?</strong>
+                    <br>• <em>AppArmor</em> is path-based (easier to learn, profiles tied to file paths)
+                    <br>• <em>SELinux</em> is label-based (more complex, security context follows files even when moved)</li>
+            </ul>
+
+            <h4>Firewalls</h4>
+            <ul>
+                <li><strong>What is UFW?</strong> Uncomplicated Firewall - a frontend for iptables/nftables designed for
+                    ease of use. Simple syntax for managing firewall rules on Debian/Ubuntu.</li>
+                <li><strong>What is firewalld?</strong> Firewall Daemon - uses zones to manage network trust levels.
+                    Dynamic rule management without reloading. Used on Rocky/RHEL systems.</li>
+                <li><strong>Difference: UFW vs firewalld?</strong>
+                    <br>• <em>UFW</em> is simpler, rule-based, ideal for single-machine servers
+                    <br>• <em>firewalld</em> uses zones, better for complex network environments with multiple interfaces</li>
+            </ul>
+
+            <h4>Storage and Partitioning</h4>
+            <ul>
+                <li><strong>What is LVM?</strong> Logical Volume Manager - a storage management system that allows flexible
+                    disk allocation. Benefits: resize volumes on the fly, span multiple physical disks, create snapshots
+                    (though forbidden in this project). Simplifies storage management compared to traditional partitions.</li>
+                <li><strong>What is LUKS?</strong> Linux Unified Key Setup - disk encryption specification. Encrypts entire
+                    partitions/volumes. Requires passphrase to unlock at boot. Works with LVM to provide encrypted storage.</li>
+                <li><strong>Why /boot separate and unencrypted?</strong> The bootloader needs to read the kernel before
+                    LUKS can be unlocked. /boot must remain unencrypted so the system can start.</li>
+            </ul>
+
+            <h4>SSH</h4>
+            <ul>
+                <li><strong>Why port 4242 instead of 22?</strong> Security through obscurity. Moving SSH off the default
+                    port reduces automated attacks and scanning. Not a replacement for proper security, but adds one layer.</li>
+                <li><strong>Why disable root SSH login?</strong> Root is the primary target for attacks. Requiring users
+                    to SSH as regular users and then use sudo adds an authentication layer and enables audit logging.</li>
+            </ul>
+
+            <h4>Password Policy</h4>
+            <ul>
+                <li><strong>Why these password rules?</strong> Defense against brute force, dictionary attacks, and
+                    password reuse. Regular expiration (30 days) limits damage from compromised passwords. Complexity
+                    requirements (upper/lower/number, length) increase entropy and make cracking harder.</li>
+            </ul>
+
+            <h4>Sudo</h4>
+            <ul>
+                <li><strong>Why log sudo commands?</strong> Audit trail. If something goes wrong, you can trace what
+                    commands were executed. Logging both input and output helps diagnose issues.</li>
+                <li><strong>Why limit sudo attempts?</strong> Prevents brute force attacks on sudo password. 3 attempts
+                    is a reasonable balance between usability and security.</li>
+                <li><strong>Why restrict secure_path?</strong> Prevents users from executing malicious versions of system
+                    commands from untrusted directories.</li>
+            </ul>
+
+            <h3>Practical Evaluation Commands</h3>
+            <p>The evaluator will verify your setup using commands like:</p>
+            <div class="code-block">
+                hostname<br>
+                groups &lt;username&gt;<br>
+                sudo -l -U &lt;username&gt;<br>
+                lsblk<br>
+                cat /etc/passwd<br>
+                getent group sudo<br>
+                aa-status<br>
+                sudo ufw status numbered<br>
+                sudo systemctl status ssh<br>
+                ss -tulpn | grep 4242
+            </div>
+                </div>
+            </section>
+
+        </main>
     </div>
 
     <footer>
-        <p>Original content from Codequoi. Translated and Redesigned for Born2beroot.</p>
+        <p>Born2beroot Guide | Based on CodeQuoi Tutorial | 42 Network</p>
     </footer>
 
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        function moveCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
 
-        // Carousel Logic
-        function moveCarousel(id, step) {
-            const carousel = document.getElementById(id);
             const items = carousel.querySelectorAll('.carousel-item');
-            const activeIndex = Array.from(items).findIndex(item => item.classList.contains('active'));
-            let newIndex = activeIndex + step;
+            if (items.length === 0) return;
 
-            if (newIndex >= items.length) newIndex = 0;
-            if (newIndex < 0) newIndex = items.length - 1;
+            let activeIndex = -1;
+            items.forEach((item, index) => {
+                if (item.classList.contains('active')) {
+                    activeIndex = index;
+                }
+            });
 
             items[activeIndex].classList.remove('active');
+
+            let newIndex = activeIndex + direction;
+            if (newIndex >= items.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = items.length - 1;
+            }
+
             items[newIndex].classList.add('active');
         }
     </script>
 </body>
-
 </html>
